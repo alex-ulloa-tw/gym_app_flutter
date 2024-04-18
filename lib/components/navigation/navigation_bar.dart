@@ -50,7 +50,7 @@ class _AppNavigationState extends State<AppNavigation> {
       ),
       body: SafeArea(
           child: [
-        const HomeScreen(),
+        HomeScreen(),
         const EventsScreen(),
         const ProfileScreen()
       ][selectedPage]),

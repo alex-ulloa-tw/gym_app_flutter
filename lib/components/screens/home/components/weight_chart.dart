@@ -1,15 +1,21 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:gym_app/infraestructure/models/chart_model.dart';
+import 'package:intl/intl.dart';
 
-class LineChartSample2 extends StatefulWidget {
-  const LineChartSample2({super.key});
+class CustomLineChart extends StatefulWidget {
+  final String title;
+  final ChartModel lineChartValues;
+
+  const CustomLineChart(
+      {super.key, required this.title, required this.lineChartValues});
 
   @override
-  State<LineChartSample2> createState() => _LineChartSample2State();
+  State<CustomLineChart> createState() => _CustomLineChartState();
 }
 
-class _LineChartSample2State extends State<LineChartSample2> {
-  List<Color> gradientColors = [Colors.black, Colors.white];
+class _CustomLineChartState extends State<CustomLineChart> {
+  List<Color> gradientColors = [Colors.grey, Colors.white];
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +31,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
               bottom: 12,
             ),
             child: LineChart(
-              mainData(),
+              mainData(widget.lineChartValues.toFlSpot()),
             ),
           ),
         ),
@@ -36,23 +42,20 @@ class _LineChartSample2State extends State<LineChartSample2> {
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       fontWeight: FontWeight.bold,
-      fontSize: 16,
+      fontSize: 11,
     );
-    Widget text;
-    switch (value.toInt()) {
-      case 2:
-        text = const Text('ENE', style: style);
-        break;
-      case 5:
-        text = const Text('FEB', style: style);
-        break;
-      case 8:
-        text = const Text('MAR', style: style);
-        break;
-      default:
-        text = const Text('', style: style);
-        break;
-    }
+
+    int year = value.toInt() - 2000;
+    int month = ((value - value.truncate()) * 10).toInt();
+
+    String monthName = DateFormat('MMM').format(DateTime(0, month));
+
+    String textValue = '$year $monthName';
+
+    Widget text = Text(
+      textValue,
+      style: style,
+    );
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
@@ -63,27 +66,15 @@ class _LineChartSample2State extends State<LineChartSample2> {
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       fontWeight: FontWeight.bold,
-      fontSize: 15,
+      fontSize: 11,
     );
-    String text;
-    switch (value.toInt()) {
-      case 1:
-        text = '60Kg';
-        break;
-      case 3:
-        text = '70Kg';
-        break;
-      case 5:
-        text = '80Kg';
-        break;
-      default:
-        return Container();
-    }
-
+    String text = "${value.round()} Kg";
     return Text(text, style: style, textAlign: TextAlign.left);
   }
 
-  LineChartData mainData() {
+  LineChartData mainData(List<FlSpot> spots) {
+    print(spots);
+
     return LineChartData(
       gridData: const FlGridData(
         show: true,
@@ -103,14 +94,14 @@ class _LineChartSample2State extends State<LineChartSample2> {
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 30,
-            interval: 1,
+            interval: 0.1,
             getTitlesWidget: bottomTitleWidgets,
           ),
         ),
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
-            interval: 1,
+            interval: 5,
             getTitlesWidget: leftTitleWidgets,
             reservedSize: 42,
           ),
@@ -120,21 +111,13 @@ class _LineChartSample2State extends State<LineChartSample2> {
         show: true,
         border: Border.all(color: const Color(0xff37434d)),
       ),
-      minX: 0,
-      maxX: 11,
-      minY: 0,
-      maxY: 6,
+      // maxX: 2024.5,
+      // minX: 2024,
+      // minY: 60,
+      // maxY: 78,
       lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
-          ],
+          spots: spots,
           isCurved: true,
           gradient: LinearGradient(
             colors: gradientColors,
