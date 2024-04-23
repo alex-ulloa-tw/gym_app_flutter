@@ -19,10 +19,24 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
+
+    return Column(
       children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 20,
+          ),
+          child: Text(
+            widget.title,
+            style: TextStyle(
+                color: colorScheme.primary,
+                fontWeight: FontWeight.w800,
+                fontSize: 20),
+          ),
+        ),
         AspectRatio(
-          aspectRatio: 1.70,
+          aspectRatio: 2.0,
           child: Padding(
             padding: const EdgeInsets.only(
               right: 18,
@@ -73,8 +87,6 @@ class _CustomLineChartState extends State<CustomLineChart> {
   }
 
   LineChartData mainData(List<FlSpot> spots) {
-    print(spots);
-
     return LineChartData(
       gridData: const FlGridData(
         show: true,
@@ -111,10 +123,6 @@ class _CustomLineChartState extends State<CustomLineChart> {
         show: true,
         border: Border.all(color: const Color(0xff37434d)),
       ),
-      // maxX: 2024.5,
-      // minX: 2024,
-      // minY: 60,
-      // maxY: 78,
       lineBarsData: [
         LineChartBarData(
           spots: spots,
