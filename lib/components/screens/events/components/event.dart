@@ -18,8 +18,8 @@ class Event extends StatelessWidget {
         margin: const EdgeInsets.all(8.0),
         child: DecoratedBox(
           decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                  colors: [Colors.grey, Colors.deepPurpleAccent]),
+              gradient:
+                  const LinearGradient(colors: [Colors.grey, Colors.black87]),
               borderRadius: BorderRadius.circular(8)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
