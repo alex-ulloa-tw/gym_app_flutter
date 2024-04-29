@@ -7,15 +7,15 @@ class LocalEventsDatasource extends EventsDatasource {
     List<EventModel> listOfEvents = [
       EventModel(
           title: 'Abierto Jujitsu',
-          date: DateTime(2024, 12, 12),
+          date: DateTime(2024, 02, 1),
           location: 'En el gimnasio'),
       EventModel(
-          title: 'Abierto Jujitsu',
-          date: DateTime(2024, 12, 12),
+          title: 'Solo cinturones negros',
+          date: DateTime(2024, 04, 2),
           location: 'En el gimnasio'),
       EventModel(
-          title: 'Abierto Jujitsu',
-          date: DateTime(2024, 12, 12),
+          title: 'Todos contra todos sin miedo',
+          date: DateTime(2024, 10, 12),
           location: 'En el gimnasio'),
     ];
 

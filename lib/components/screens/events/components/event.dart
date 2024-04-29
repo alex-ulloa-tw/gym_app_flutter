@@ -10,7 +10,7 @@ class Event extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String dateReadable =
-        DateFormat('E dd/M/yyyy').format(event.date).toUpperCase();
+        DateFormat('E dd/MM/yyyy').format(event.date).toUpperCase();
 
     return SizedBox(
       width: double.infinity,
